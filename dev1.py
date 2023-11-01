@@ -1,1 +1,1 @@
-print('Luigi Sibinelli e Mathias Zanotto')
+print('Luigi Sibinelli')
