@@ -1,6 +1,7 @@
 from funcoes import filtra
 from funcoes import inicializa
 from funcoes import indica_posicao
+
 palavras = ['arroz', 'menor', 'maior', 'banco', 'carro','barro']
 
 sorteada = inicializa(palavras)['sorteada']
