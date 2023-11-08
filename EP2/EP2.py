@@ -2,6 +2,7 @@ from funcoes import filtra
 from funcoes import inicializa
 from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
+import time
 
 palavras = ['arroz', 'menor', 'maior', 'banco', 'carro','barro','banana','macaco']
 filtro = filtra(PALAVRAS,5)
@@ -11,6 +12,25 @@ tentativas = len(sorteada)+1
 qt_letras = len(sorteada)
 especuladas = []
 espec = ''
+
+print(' =========================== ')
+print('|                           |')
+print('| Bem-vindo ao Insper Termo |')
+print('|                           |')
+print(' ==== Design de Software === ')
+print('Comandos: desistir, dica')
+print(' Regras:\n')
+print('  - Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras.')
+print('  - A cada tentativa, a palavra testada terá suas letras coloridas conforme:')
+print('    . Azul   : a letra está na posição correta;')
+print('    . Amarelo: a palavra tem a letra, mas está na posição errada;')
+print('    . Cinza: a palavra não tem a letra.')
+print('  - Os acentos são ignorados;')
+print('  - As palavras podem possuir letras repetidas.\n')
+print('Sorteando uma palavra...')
+time.sleep(1.5)
+print('Já tenho uma palavra! Tente adivinhá-la!\n')
+print('Você tem',tentativas, 'para acertar uma palavra aleatória de 5 letras')
 
 print('Sorteando uma palavra...\n')
 print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
