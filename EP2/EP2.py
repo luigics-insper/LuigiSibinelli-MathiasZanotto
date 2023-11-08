@@ -3,20 +3,21 @@ from funcoes import inicializa
 from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
 
-palavras = palavras = ['arroz', 'menor', 'maior', 'banco', 'carro','barro','banana','macaco']
+palavras = ['arroz', 'menor', 'maior', 'banco', 'carro','barro','banana','macaco']
+filtro = filtra(PALAVRAS,5)
 
-sorteada = inicializa(palavras)['sorteada']
+sorteada = inicializa(filtro)['sorteada']
 tentativas = len(sorteada)+1
 qt_letras = len(sorteada)
 especuladas = []
 espec = ''
 
-print('Você tem',tentativas, 'tentativas para acertar uma palavra aleatória de',qt_letras,'letras')
 print('Sorteando uma palavra...\n')
+print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
 print('Você tem',tentativas,'tentativa(s)!')
 
-filtro = filtra(PALAVRAS,qt_letras)
 
+print(sorteada)
 while espec != sorteada:
      '''
      print('A palavra sorteada é',sorteada,'\n') -- para descobrir a palavra sorteada
@@ -38,7 +39,7 @@ while espec != sorteada:
           continue
 
      especuladas.append(espec)
-     print('\n',especuladas)
+     print('\n',especuladas,'\n')
      tentativas -= 1
 
      if tentativas == 0:
