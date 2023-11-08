@@ -10,7 +10,7 @@ tentativas = inicializa(palavras)['tentativas']
 qt_letras = inicializa(palavras)['n']
 especuladas = []
 espec = ''
-
+print('Comandos: desistir, dica')
 print('Você tem',tentativas, 'para acertar uma palavra aleatória de ',qt_letras,'letras')
 print('Sorteando uma palavra...\n')
 print('Você tem ',inicializa(palavras)['tentativas'],'tentativa(s)!')
@@ -22,7 +22,12 @@ while espec != sorteada:
      '''
 
      espec = input('Qual é seu palpite? \n')
-
+     if espec == 'desistir':
+          confirmar = input('Tem certeza que deseja desistir? (s/n)')
+          if confirmar == 's':
+               print('A palavra era:',sorteada)
+               break
+          continue
      if espec not in PALAVRAS:
           print('Palavra desconhecida')
           continue
