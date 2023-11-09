@@ -4,15 +4,15 @@ from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
 import time
 
-palavras = ['arroz', 'menor', 'maior', 'banco', 'carro','barro','banana','macaco']
+#VARIAVEIS
 filtro = filtra(PALAVRAS,5)
-
 sorteada = inicializa(filtro)['sorteada']
 tentativas = len(sorteada)+1
 qt_letras = len(sorteada)
 especuladas = []
 espec = ''
 
+# REGRAS / INICIO
 print(' =========================== ')
 print('|                           |')
 print('| Bem-vindo ao Insper Termo |')
@@ -29,34 +29,28 @@ print('  - Os acentos são ignorados;')
 print('  - As palavras podem possuir letras repetidas.\n')
 print('Sorteando uma palavra...')
 time.sleep(1.5)
-print('Já tenho uma palavra! Tente adivinhá-la!\n')
 print('Você tem',tentativas, 'para acertar uma palavra aleatória de 5 letras')
-
-print('Sorteando uma palavra...\n')
-print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
-print('Você tem',tentativas,'tentativa(s)!')
+print('Já tenho uma palavra! Tente adivinhá-la!\n')
 
 
-print(sorteada)
+
+
+print('A palavra sorteada é',sorteada,'\n') # -- para descobrir a palavra sorteada
+
 while espec != sorteada:
-     '''
-     print('A palavra sorteada é',sorteada,'\n') -- para descobrir a palavra sorteada
-     '''
+
 
      espec = input('Qual é seu palpite? \n')
 
      if espec not in PALAVRAS:
           print('Palavra desconhecida')
-          continue
-     if espec not in filtro:
+     elif espec not in filtro:
           print('Apenas palavras de',qt_letras,'letras!\n')
-          continue
-     if espec == sorteada:
+     elif espec == sorteada:
           print('Voce acertou')
           break
-     if espec in especuladas:
+     elif espec in especuladas:
           print('Palavra já testada.')
-          continue
 
      especuladas.append(espec)
      print('\n',especuladas,'\n')
