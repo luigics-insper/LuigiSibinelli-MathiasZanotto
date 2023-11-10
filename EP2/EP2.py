@@ -2,6 +2,8 @@ from funcoes import filtra
 from funcoes import inicializa
 from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
+from rich.console import Console
+console = Console()
 import time
 
 #VARIAVEIS
@@ -46,60 +48,87 @@ l6 = '|   |   |   |   |   |'
 
 i = 0
 while i < 6:
-     if tentativas == 0:
-          print('Você perdeu! A palavra era: ',sorteada)
-          break
+    if tentativas == 0:
+        print('Você perdeu! A palavra era: ',sorteada)
+        opcao = input('Quer jogar novamente? (s/n) ')
+        if opcao == 's':
+            continue
+        elif opcao == 'n':
+            print('Obrigado por jogar!')
+            break
+        else:
+            while opcao != 's' or opcao != 'n':
+                opcao = input('Quer jogar novamente? (s/n) ')
+                if opcao == 's':
+                    continue
+                elif opcao == 'n':
+                    print('Obrigado por jogar!')
+                    break
 
-     especulada = input('Qual é seu palpite? \n')
+    especulada = input('Qual é seu palpite? \n')
      
-     if especulada not in PALAVRAS:
+    if especulada not in PALAVRAS:
           print('Palavra desconhecida')
           continue
-     elif especulada not in filtro:
+    elif especulada not in filtro:
           print('Apenas palavras de',qt_letras,'letras!\n')
           continue
-     elif especulada in especuladas:
+    elif especulada in especuladas:
           print('Palavra já testada.')
           continue
-     especuladas.append(especulada)
-     if i == 0:
+    especuladas.append(especulada)
+    if i == 0:
         l1 = '|'
         for letra in especulada:
             l1 += ' ' + letra + ' |'
-     if i == 1:
+    if i == 1:
         l2 = '|'
         for letra in especulada:
             l2 += ' ' + letra + ' |'
-     if i == 2:
+    if i == 2:
         l3 = '|'
         for letra in especulada:
             l3 += ' ' + letra + ' |'
-     if i == 3:
+    if i == 3:
         l4 = '|'
         for letra in especulada:
             l4 += ' ' + letra + ' |'
-     if i == 4:
+    if i == 4:
         l5 = '|'
         for letra in especulada:
             l5 += ' ' + letra + ' |'
-     if i == 5:
+    if i == 5:
         l6 = '|'
         for letra in especulada:
             l5 += ' ' + letra + ' |'
 
-     tabela = print('  --- --- --- --- --- \n',l1,'\n' '  --- --- --- --- --- \n',l2,'\n' '  --- --- --- --- --- \n',l3,'\n' '  --- --- --- --- --- \n',l4,'\n' '  --- --- --- --- --- \n',l5,'\n' '  --- --- --- --- --- \n',l6,'\n' '  --- --- --- --- --- \n')
+    tabela = print('  --- --- --- --- --- \n',l1,'\n' '  --- --- --- --- --- \n',l2,'\n' '  --- --- --- --- --- \n',l3,'\n' '  --- --- --- --- --- \n',l4,'\n' '  --- --- --- --- --- \n',l5,'\n' '  --- --- --- --- --- \n',l6,'\n' '  --- --- --- --- --- \n')
     
-     if especulada == sorteada:
-        print('Voce acertou')
-        break
+    if espec == sorteada:
+        print('Você acertou!')
+        opcao = input('Quer jogar novamente? (s/n) ')
+        if opcao == 's':
+            continue
+        elif opcao == 'n':
+            print('Obrigado por jogar!')
+            break
+        else:
+            while opcao != 's' or opcao != 'n':
+                print('Coloque "s" ou "n"!\n')
+                opcao = input('Quer jogar novamente? (s/n) ')
+                if opcao == 's':
+                    continue
+                elif opcao == 'n':
+                    print('Obrigado por jogar!')
+                    break
 
-     '''for result in indica_posicao(sorteada,especulada):
+    '''for result in indica_posicao(sorteada,especulada):
         if result == 0:
             print('pos e letra certa')
         elif result == 1:
             print('letra certa, pos errada')
         elif result == 2:
             print('letra e pos erradas')'''
-     tentativas -= 1
-     i += 1
-     print('Você tem ',tentativas,'tentativa(s)!')
+    tentativas -= 1
+    i += 1
+    print('Você tem ',tentativas,'tentativa(s)!')
