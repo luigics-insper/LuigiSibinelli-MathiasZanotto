@@ -127,12 +127,16 @@ while True:
         print('Você tem ',tentativas,'tentativa(s) faltando!')
 
         if tentativas == 0:
-            print('Você perdeu! A palavra era: ',sorteada)
+            print('Você perdeu! A palavra era:',sorteada)
             opcao = input('Quer jogar novamente? (s/n) ')
+            if opcao == 's':
+                continue
+            elif opcao == 'n':
+                break
             while opcao != 's' or opcao != 'n':
                 opcao = input('Quer jogar novamente? (s/n) ')
                 if opcao == 's':
-                    i = 6
+                    i = 7
                     break
                 elif opcao == 'n':
                     print('Obrigado por jogar!')
