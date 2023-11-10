@@ -63,6 +63,8 @@ while True:
                     break
             if opcao == 'n':
                 break
+            if opcao == 's':
+                continue
 
         if especulada not in PALAVRAS:
             print('Palavra desconhecida')
