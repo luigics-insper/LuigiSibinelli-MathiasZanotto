@@ -30,7 +30,7 @@ print('    . Cinza: a palavra não tem a letra.')
 print('  - Os acentos são ignorados;')
 print('  - As palavras podem possuir letras repetidas.\n')
 print('Sorteando uma palavra...')
-time.sleep(1.5)
+time.sleep(1.2)
 print('Você tem',tentativas, 'tentativas para acertar uma palavra aleatória de 5 letras')
 print('Já tenho uma palavra! Tente adivinhá-la!\n')
 
@@ -48,25 +48,18 @@ l6 = '|   |   |   |   |   |'
 
 i = 0
 while i < 6:
-    if tentativas == 0:
-        print('Você perdeu! A palavra era: ',sorteada)
-        opcao = input('Quer jogar novamente? (s/n) ')
-        if opcao == 's':
-            continue
-        elif opcao == 'n':
-            print('Obrigado por jogar!')
-            break
-        else:
-            while opcao != 's' or opcao != 'n':
-                opcao = input('Quer jogar novamente? (s/n) ')
-                if opcao == 's':
-                    continue
-                elif opcao == 'n':
-                    print('Obrigado por jogar!')
-                    break
-
     especulada = input('Qual é seu palpite? \n')
      
+    if especulada == 'desisto':
+        while opcao != 's' or opcao != 'n':
+            opcao = input('Quer jogar novamente? (s/n) ')
+            if opcao == 's':
+                i = 6
+                break
+            elif opcao == 'n':
+                print('Obrigado por jogar!')
+                break
+
     if especulada not in PALAVRAS:
           print('Palavra desconhecida')
           continue
@@ -107,13 +100,7 @@ while i < 6:
     if espec == sorteada:
         print('Você acertou!')
         opcao = input('Quer jogar novamente? (s/n) ')
-        if opcao == 's':
-            continue
-        elif opcao == 'n':
-            print('Obrigado por jogar!')
-            break
-        else:
-            while opcao != 's' or opcao != 'n':
+        while opcao != 's' or opcao != 'n':
                 print('Coloque "s" ou "n"!\n')
                 opcao = input('Quer jogar novamente? (s/n) ')
                 if opcao == 's':
@@ -131,4 +118,16 @@ while i < 6:
             print('letra e pos erradas')'''
     tentativas -= 1
     i += 1
-    print('Você tem ',tentativas,'tentativa(s)!')
+    print('Você tem ',tentativas,'tentativa(s) faltando!')
+
+    if tentativas == 0:
+        print('Você perdeu! A palavra era: ',sorteada)
+        opcao = input('Quer jogar novamente? (s/n) ')
+        while opcao != 's' or opcao != 'n':
+            opcao = input('Quer jogar novamente? (s/n) ')
+            if opcao == 's':
+                i = 6
+                break
+            elif opcao == 'n':
+                print('Obrigado por jogar!')
+                break
