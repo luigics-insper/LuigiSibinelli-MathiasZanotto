@@ -21,7 +21,7 @@ print('|                           |')
 print('| Bem-vindo ao Insper Termo |')
 print('|                           |')
 print(' ==== Design de Software === ')
-print('Comandos: desistir, dica (apenas com 3 tentativas ou menos)')
+print('Comandos: desistir, dica (apenas quando estiver com 2 tentativas)')
 print(' Regras:\n')
 print('  - Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras.')
 print('  - A cada tentativa, a palavra testada terá suas letras coloridas conforme:')
@@ -80,12 +80,14 @@ while True:
             break
 
         #Comando de dica
-        if especulada == 'dica' and tentativas <= 3:
-            print('Você pode escolher usar uma dica, mas perderá uma tentativa.')
+        if especulada == 'dica' and tentativas == 2:
+            print('Você pode escolher usar a dica, mas perderá uma tentativa.')
             escolha_dica = input('Deseja prosseguir? (s/n) ')
             print('')
+            indice_dica = random.randint(0,len(sorteada)-1)
+            palavra_dica = sorteada[indice_dica]
             if escolha_dica == 's':
-                print('A letra escolhida foi',sorteada[random.randint(0,len(sorteada)-1)].upper(),'que está na posição',sorteada.index(sorteada[random.randint(0,len(sorteada)-1)]))
+                print('A letra escolhida foi',palavra_dica.upper(),'que está na posição',sorteada.index(palavra_dica)+1)
                 tentativas -= 1
                 print('Você tem', tentativas, 'tentativas sobrando!')
                 if tentativas <= 0:
@@ -107,8 +109,8 @@ while True:
                 print('Não quer a dica? Ok.\n')
                 time.sleep(0.7)
                 continue
-        elif especulada == 'dica' and tentativas > 3:
-            print('\nDicas ainda não são permitidas! Apenas com 3 tentativas ou menos!')
+        elif especulada == 'dica' and tentativas > 2:
+            print('\nA dica ainda não é permitida! Apenas com 2 tentativas!')
             print('Você ainda tem', tentativas, 'tentativas sobrando!\n')
             continue
 
