@@ -111,7 +111,7 @@ while True:
 
         especuladas.append(especulada)
 
-        #Comando que colore a palavra especulada dependendo da posição das letras em relação à palavra sorteada
+        #Comando que colore a palavra especulada dependendo da posição das letras em relação às letras da palavra sorteada
         especulada_cor = ''
         for index, posicao in enumerate(posicoes):
             if posicao == 0:
