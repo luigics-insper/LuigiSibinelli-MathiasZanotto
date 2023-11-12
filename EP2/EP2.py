@@ -88,40 +88,40 @@ while True:
             palavra_dica = sorteada[indice_dica]
             if escolha_dica == 's':
                 print('A letra escolhida foi',palavra_dica.upper(),'que está na posição',sorteada.index(palavra_dica)+1)
-                tentativas -= 1
-                print('Você tem', tentativas, 'tentativas sobrando!')
+                time.sleep(5)
                 if tentativas <= 0:
                     print('')
                     print('Você perdeu! A palavra era:',sorteada)
                     while opcao != 's' or opcao != 'n':
                         opcao = input('Quer jogar novamente? (s/n) ')
                         if opcao == 's':
-                            break
+                            continue
                         elif opcao == 'n':
                             print('Obrigado por jogar!')
                             break
+
                 if opcao == 'n':
                     break
                 if opcao == 's':
                     print('')
-                    break
+                    continue
             else:
                 print('Não quer a dica? Ok.\n')
                 time.sleep(0.7)
                 continue
         elif especulada == 'dica' and tentativas > 2:
-            print('\nA dica ainda não é permitida! Apenas com 2 tentativas!')
+            print('\nA dica ainda não é permitida! Apenas com 2 tentativas sobrando!')
             print('Você ainda tem', tentativas, 'tentativas sobrando!\n')
             continue
 
         #Comandos caso a palavra especulada não esteja no banco de palavras, não tenha 5 letra ou já tenha sido testada
-        if especulada not in PALAVRAS:
+        if especulada not in PALAVRAS and especulada != 'dica' and especulada != 'desisto':
             print('Palavra desconhecida')
             continue
-        elif especulada not in filtro:
+        elif especulada not in filtro and especulada != 'dica' and especulada != 'desisto':
             print('Apenas palavras de',qt_letras,'letras!\n')
             continue
-        elif especulada in especuladas:
+        elif especulada in especuladas and especulada != 'dica' and especulada != 'desisto':
             print('Palavra já testada.')
             continue
 
@@ -191,7 +191,7 @@ while True:
         tentativas -= 1
         i += 1
         if tentativas > 0:
-            print('Você tem ',tentativas,'tentativa(s) faltando!')
+            print('Você tem',tentativas,'tentativa(s) faltando!')
 
         #Condição de derrota
         if tentativas <= 0:
