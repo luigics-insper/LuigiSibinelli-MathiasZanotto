@@ -13,6 +13,8 @@ class Color:
     amarelo = '\033[33m'
     cinza = '\033[30m'
 
+#print('\033[34ma\033[34m')
+
 # REGRAS / INICIO
 print(' =========================== ')
 print('|                           |')
@@ -45,18 +47,19 @@ while True:
     especuladas = []
     opcao = ''
 
-    print('A palavra sorteada é',sorteada,'\n') # -- para descobrir a palavra sorteada
+#    print('A palavra sorteada é',sorteada,'\n') # -- para descobrir a palavra sorteada
 
-    l1 = '|   |   |   |   |   |'
-    l2 = '|   |   |   |   |   |'
-    l3 = '|   |   |   |   |   |'
-    l4 = '|   |   |   |   |   |'
-    l5 = '|   |   |   |   |   |'
-    l6 = '|   |   |   |   |   |'
+    l1 = ''
+    l2 = ''
+    l3 = ''
+    l4 = ''
+    l5 = ''
+    l6 = ''
 
     i = 0
     while i < 6:
         especulada = input('Qual é seu palpite? \n')
+        especulada = especulada.lower()
         especulada_letras = list(especulada)
         posicoes = indica_posicao(sorteada, especulada)
         
@@ -133,33 +136,34 @@ while True:
                 letra = '\033[90m' + especulada[index] + '\033[0m'
             especulada_cor += letra
 
+
         #Comando que coloca as letras nos lugares adequados na tabela
         if i == 0:
-            l1 = '|'
+            l1 = ''
             for letra in especulada_cor:
-                l1 += ' ' + letra + ' |'
+                l1 += letra
         if i == 1:
-            l2 = '|'
+            l2 = ''
             for letra in especulada_cor:
-                l2 += ' ' + letra + ' |'
+                l2 += letra
         if i == 2:
-            l3 = '|'
+            l3 = ''
             for letra in especulada_cor:
-                l3 += ' ' + letra + ' |'
+                l3 += letra
         if i == 3:
-            l4 = '|'
+            l4 = ''
             for letra in especulada_cor:
-                l4 += ' ' + letra + ' |'
+                l4 += letra
         if i == 4:
-            l5 = '|'
+            l5 = ''
             for letra in especulada_cor:
-                l5 += ' ' + letra + ' |'
+                l5 += letra
         if i == 5:
-            l6 = '|'
+            l6 = ''
             for letra in especulada_cor:
-                l6 += ' ' + letra + ' |'
+                l6 += letra
 
-        tabela = print('  --- --- --- --- --- \n',l1,'\n' '  --- --- --- --- --- \n',l2,'\n' '  --- --- --- --- --- \n',l3,'\n' '  --- --- --- --- --- \n',l4,'\n' '  --- --- --- --- --- \n',l5,'\n' '  --- --- --- --- --- \n',l6,'\n' '  --- --- --- --- --- \n')
+        tabela = print('\n',l1,'\n',l2,'\n',l3,'\n',l4,'\n',l5,'\n',l6,'\n')
         
         #Condição de vitória
         if especulada == sorteada:
