@@ -1,3 +1,4 @@
+#Bibliotecas importadas
 from funcoes import filtra
 from funcoes import inicializa
 from funcoes import indica_posicao
@@ -18,7 +19,7 @@ print('|                           |')
 print('| Bem-vindo ao Insper Termo |')
 print('|                           |')
 print(' ==== Design de Software === ')
-print('Comandos: desistir, dica')
+print('Comandos: desistir, dica (apenas com 3 tentativas ou menos)')
 print(' Regras:\n')
 print('  - Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras.')
 print('  - A cada tentativa, a palavra testada terá suas letras coloridas conforme:')
@@ -27,13 +28,14 @@ print('    . \033[93mAmarelo\033[0m: a palavra tem a letra, mas está na posiç�
 print('    . \033[90mCinza\033[0m: a palavra não tem a letra.')
 print('  - Os acentos são ignorados;')
 print('  - As palavras podem possuir letras repetidas.\n')
+print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
+
 
 #Jogo do termo
 while True:
     print('Sorteando uma palavra...')
-    time.sleep(0.7)
+    time.sleep(1.5)
     inicio = time.time()
-    print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
     print('Já tenho uma palavra! Tente adivinhá-la!\n')
 
     filtro = filtra(PALAVRAS,5)
@@ -75,10 +77,28 @@ while True:
             break
 
         #Comando de dica
-        if especulada == 'dica':
-            print(sorteada[random.randint(0,len(sorteada)-1)])
+        if especulada == 'dica' and tentativas <= 3:
+            print('Você pode escolher usar uma dica, mas perderá uma tentativa.')
+            escolha_dica = input('Deseja prosseguir? (s/n) ')
+            print('')
+            if escolha_dica == 'n':
+                print('Não quer a dica? Ok.\n')
+                continue
+            elif escolha_dica == 's':
+                print('A letra escolhida foi',sorteada[random.randint(0,len(sorteada)-1)].upper(),'que está na posição',sorteada.index(sorteada[random.randint(0,len(sorteada)-1)]))
+                tentativas -= 1
+                print('Você tem', tentativas, 'tentativas sobrando!')
+                continue
+            else:
+                print('Não quer a dica? Ok.\n')
+                time.sleep(0.7)
+                continue
+        elif especulada == 'dica' and tentativas > 3:
+            print('\nDicas ainda não são permitidas! Apenas com 3 tentativas ou menos!')
+            print('Você ainda tem', tentativas, 'tentativas sobrando!\n')
             continue
 
+        #Comandos caso a palavra especulada não esteja no banco de palavras, não tenha 5 letra ou já tenha sido testada
         if especulada not in PALAVRAS:
             print('Palavra desconhecida')
             continue
@@ -91,7 +111,8 @@ while True:
 
         especuladas.append(especulada)
 
-        string = ''
+        #Comando que colore a palavra especulada dependendo da posição das letras em relação à palavra sorteada
+        especulada_cor = ''
         for index, posicao in enumerate(posicoes):
             if posicao == 0:
                 letra = '\033[94m' + especulada[index] + '\033[0m'
@@ -99,32 +120,32 @@ while True:
                 letra = '\033[93m' + especulada[index] + '\033[0m'
             else:
                 letra = '\033[90m' + especulada[index] + '\033[0m'
-            string += letra
+            especulada_cor += letra
 
-        especulada = string
+        #Comando que coloca as letras nos lugares adequados na tabela
         if i == 0:
             l1 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l1 += ' ' + letra + ' |'
         if i == 1:
             l2 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l2 += ' ' + letra + ' |'
         if i == 2:
             l3 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l3 += ' ' + letra + ' |'
         if i == 3:
             l4 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l4 += ' ' + letra + ' |'
         if i == 4:
             l5 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l5 += ' ' + letra + ' |'
         if i == 5:
             l6 = '|'
-            for letra in especulada:
+            for letra in especulada_cor:
                 l6 += ' ' + letra + ' |'
 
         tabela = print('  --- --- --- --- --- \n',l1,'\n' '  --- --- --- --- --- \n',l2,'\n' '  --- --- --- --- --- \n',l3,'\n' '  --- --- --- --- --- \n',l4,'\n' '  --- --- --- --- --- \n',l5,'\n' '  --- --- --- --- --- \n',l6,'\n' '  --- --- --- --- --- \n')
@@ -155,7 +176,7 @@ while True:
         if tentativas > 0:
             print('Você tem ',tentativas,'tentativa(s) faltando!')
 
-        #condição de derrota
+        #Condição de derrota
         if tentativas <= 0:
             print('Você perdeu! A palavra era:',sorteada)
             while opcao != 's' or opcao != 'n':
