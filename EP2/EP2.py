@@ -3,6 +3,7 @@ from funcoes import inicializa
 from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
 import time
+import random
 
 # REGRAS / INICIO
 print(' =========================== ')
@@ -68,7 +69,8 @@ while True:
 
         #Comando de dica
         if especulada == 'dica':
-            print('dica')
+            print(sorteada[random.randint(0,len(sorteada)-1)])
+            continue
 
         if especulada not in PALAVRAS:
             print('Palavra desconhecida')
@@ -79,7 +81,9 @@ while True:
         elif especulada in especuladas:
             print('Palavra já testada.')
             continue
+
         especuladas.append(especulada)
+
         if i == 0:
             l1 = '|'
             for letra in especulada:
@@ -110,7 +114,11 @@ while True:
         #Condição de vitória
         if especulada == sorteada:
             fim = time.time()
-            print(f'Você acertou em {(fim-inicio):.1f} segundos!')
+            tempo_jogado = fim-inicio
+            if tempo_jogado >= 60:
+                print(f'Você acertou em {((fim-inicio)//60):.0f} minuto(s) e {abs((fim-inicio)-(fim-inicio//10*10)):.0f} segundo(s)!')
+            else:
+                print(f'Você acertou em {(fim-inicio):.0f} segundos!')
             while opcao != 's' or opcao != 'n':
                 opcao = input('Quer jogar novamente? (s/n) ')
                 if opcao == 's':
@@ -133,11 +141,11 @@ while True:
                 print('letra e pos erradas')'''
         tentativas -= 1
         i += 1
-        if tentativas != 0:
+        if tentativas > 0:
             print('Você tem ',tentativas,'tentativa(s) faltando!')
 
         #condição de derrota
-        if tentativas == 0:
+        if tentativas <= 0:
             print('Você perdeu! A palavra era:',sorteada)
             while opcao != 's' or opcao != 'n':
                 opcao = input('Quer jogar novamente? (s/n) ')
