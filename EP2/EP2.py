@@ -2,11 +2,7 @@ from funcoes import filtra
 from funcoes import inicializa
 from funcoes import indica_posicao
 from banco_palavras import PALAVRAS
-from rich.console import Console
-console = Console()
 import time
-
-
 
 # REGRAS / INICIO
 print(' =========================== ')
@@ -18,24 +14,25 @@ print('Comandos: desistir, dica')
 print(' Regras:\n')
 print('  - Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras.')
 print('  - A cada tentativa, a palavra testada terá suas letras coloridas conforme:')
-print('    . Azul   : a letra está na posição correta;')
-print('    . Amarelo: a palavra tem a letra, mas está na posição errada;')
-print('    . Cinza: a palavra não tem a letra.')
+print('    . \033[94mAzul\033[0m  : a letra está na posição correta;')
+print('    . \033[93mAmarelo\033[0m: a palavra tem a letra, mas está na posição errada;')
+print('    . \033[90mCinza\033[0m: a palavra não tem a letra.')
 print('  - Os acentos são ignorados;')
 print('  - As palavras podem possuir letras repetidas.\n')
-print('Sorteando uma palavra...')
-time.sleep(0.7)
-print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
-print('Já tenho uma palavra! Tente adivinhá-la!\n')
 
-
+#Jogo do termo
 while True:
+    print('Sorteando uma palavra...')
+    time.sleep(0.7)
+    inicio = time.time()
+    print('Você tem 6 tentativas para acertar uma palavra aleatória de 5 letras')
+    print('Já tenho uma palavra! Tente adivinhá-la!\n')
+
     filtro = filtra(PALAVRAS,5)
     sorteada = inicializa(filtro)['sorteada']
     tentativas = len(sorteada)+1
     qt_letras = len(sorteada)
     especuladas = []
-    espec = ''
     opcao = ''
 
 
@@ -51,20 +48,27 @@ while True:
     i = 0
     while i < 6:
         especulada = input('Qual é seu palpite? \n')
+        especulada_letras = list(especulada)
         
+        #Comando de desistência
         if especulada == 'desisto':
             while opcao != 's' or opcao != 'n':
-                opcao = input('Quer jogar novamente? (s/n) ')
+                opcao = input('\nQuer jogar novamente? (s/n) ')
                 if opcao == 's':
                     i = 7
                     break
                 elif opcao == 'n':
                     print('Obrigado por jogar!')
                     break
-            if opcao == 'n':
-                break
-            if opcao == 's':
-                continue
+        if opcao == 'n':
+            break
+        if opcao == 's':
+            print('')
+            break
+
+        #Comando de dica
+        if especulada == 'dica':
+            print('dica')
 
         if especulada not in PALAVRAS:
             print('Palavra desconhecida')
@@ -103,17 +107,22 @@ while True:
 
         tabela = print('  --- --- --- --- --- \n',l1,'\n' '  --- --- --- --- --- \n',l2,'\n' '  --- --- --- --- --- \n',l3,'\n' '  --- --- --- --- --- \n',l4,'\n' '  --- --- --- --- --- \n',l5,'\n' '  --- --- --- --- --- \n',l6,'\n' '  --- --- --- --- --- \n')
         
-        if espec == sorteada:
-            print('Você acertou!')
-            opcao = input('Quer jogar novamente? (s/n) ')
+        #Condição de vitória
+        if especulada == sorteada:
+            fim = time.time()
+            print(f'Você acertou em {(fim-inicio):.1f} segundos!')
             while opcao != 's' or opcao != 'n':
-                    print('Coloque "s" ou "n"!\n')
-                    opcao = input('Quer jogar novamente? (s/n) ')
-                    if opcao == 's':
-                        continue
-                    elif opcao == 'n':
-                        print('Obrigado por jogar!')
-                        break
+                opcao = input('Quer jogar novamente? (s/n) ')
+                if opcao == 's':
+                    break
+                elif opcao == 'n':
+                    print('Obrigado por jogar!')
+                    break
+        if opcao == 'n':
+            break
+        if opcao == 's':
+            print('')
+            break
 
         '''for result in indica_posicao(sorteada,especulada):
             if result == 0:
@@ -124,22 +133,23 @@ while True:
                 print('letra e pos erradas')'''
         tentativas -= 1
         i += 1
-        print('Você tem ',tentativas,'tentativa(s) faltando!')
+        if tentativas != 0:
+            print('Você tem ',tentativas,'tentativa(s) faltando!')
 
+        #condição de derrota
         if tentativas == 0:
             print('Você perdeu! A palavra era:',sorteada)
-            opcao = input('Quer jogar novamente? (s/n) ')
-            if opcao == 's':
-                continue
-            elif opcao == 'n':
-                break
             while opcao != 's' or opcao != 'n':
                 opcao = input('Quer jogar novamente? (s/n) ')
                 if opcao == 's':
-                    i = 7
                     break
                 elif opcao == 'n':
                     print('Obrigado por jogar!')
                     break
+        if opcao == 'n':
+            break
+        if opcao == 's':
+            print('')
+            break
     if opcao == 'n':
         break
