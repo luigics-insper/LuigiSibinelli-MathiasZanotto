@@ -5,6 +5,13 @@ from banco_palavras import PALAVRAS
 import time
 import random
 
+#Cores utilizadas
+class Color:
+    reset = '\033[0m'
+    azul = '\033[34m'
+    amarelo = '\033[33m'
+    cinza = '\033[30m'
+
 # REGRAS / INICIO
 print(' =========================== ')
 print('|                           |')
@@ -36,7 +43,6 @@ while True:
     especuladas = []
     opcao = ''
 
-
     print('A palavra sorteada é',sorteada,'\n') # -- para descobrir a palavra sorteada
 
     l1 = '|   |   |   |   |   |'
@@ -50,6 +56,7 @@ while True:
     while i < 6:
         especulada = input('Qual é seu palpite? \n')
         especulada_letras = list(especulada)
+        posicoes = indica_posicao(sorteada, especulada)
         
         #Comando de desistência
         if especulada == 'desisto':
@@ -84,6 +91,17 @@ while True:
 
         especuladas.append(especulada)
 
+        string = ''
+        for index, posicao in enumerate(posicoes):
+            if posicao == 0:
+                letra = '\033[94m' + especulada[index] + '\033[0m'
+            elif posicao == 1:
+                letra = '\033[93m' + especulada[index] + '\033[0m'
+            else:
+                letra = '\033[90m' + especulada[index] + '\033[0m'
+            string += letra
+
+        especulada = string
         if i == 0:
             l1 = '|'
             for letra in especulada:
@@ -132,13 +150,6 @@ while True:
             print('')
             break
 
-        '''for result in indica_posicao(sorteada,especulada):
-            if result == 0:
-                print('pos e letra certa')
-            elif result == 1:
-                print('letra certa, pos errada')
-            elif result == 2:
-                print('letra e pos erradas')'''
         tentativas -= 1
         i += 1
         if tentativas > 0:
