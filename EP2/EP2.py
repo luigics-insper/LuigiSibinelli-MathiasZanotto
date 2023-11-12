@@ -81,14 +81,25 @@ while True:
             print('Você pode escolher usar uma dica, mas perderá uma tentativa.')
             escolha_dica = input('Deseja prosseguir? (s/n) ')
             print('')
-            if escolha_dica == 'n':
-                print('Não quer a dica? Ok.\n')
-                continue
-            elif escolha_dica == 's':
+            if escolha_dica == 's':
                 print('A letra escolhida foi',sorteada[random.randint(0,len(sorteada)-1)].upper(),'que está na posição',sorteada.index(sorteada[random.randint(0,len(sorteada)-1)]))
                 tentativas -= 1
                 print('Você tem', tentativas, 'tentativas sobrando!')
-                continue
+                if tentativas <= 0:
+                    print('')
+                    print('Você perdeu! A palavra era:',sorteada)
+                    while opcao != 's' or opcao != 'n':
+                        opcao = input('Quer jogar novamente? (s/n) ')
+                        if opcao == 's':
+                            break
+                        elif opcao == 'n':
+                            print('Obrigado por jogar!')
+                            break
+                if opcao == 'n':
+                    break
+                if opcao == 's':
+                    print('')
+                    break
             else:
                 print('Não quer a dica? Ok.\n')
                 time.sleep(0.7)
